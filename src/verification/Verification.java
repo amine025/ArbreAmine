@@ -1,8 +1,8 @@
 package verification;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Calendar;
 
 public class Verification {
 
@@ -11,35 +11,32 @@ public class Verification {
     private final static LocalDate DATE2 = LocalDate.of(1981, Month.JANUARY, 1);
     private final static LocalDate DATE3 = LocalDate.of(1991, Month.JANUARY, 1);
     private final static LocalDate DATE4 = LocalDate.of(2001, Month.JANUARY, 1);
-    private final static LocalDate DATE5 = LocalDate.of(2011, Month.JANUARY, 1);
+    private final static LocalDate DATE5 = LocalDate.of(LocalDate.now().getYear() - 18, Month.JANUARY, 1);
 
-    public static String showMessageFromAge(String year, String month, String day) {
-        
+    public static String showMessageFromAge(String[] infos) {
+
         String message;
         LocalDate localDate;
         try {
-            int myDay = Integer.parseInt(day);
-            int myMonth = Integer.parseInt(month);
-            int myYear = Integer.parseInt(year);
-            
-            boolean estValide = testDay(myDay) && testMonth(myMonth) && testYear(myYear);
+            int myYear = Integer.parseInt(infos[0]);
+            int myMonth = Integer.parseInt(infos[1]);
+            int myDay = Integer.parseInt(infos[2]);
+            boolean estPositif =  myYear > 0 && myMonth> 0 && myDay > 0;
+
             localDate = LocalDate.of(myYear, myMonth, myDay);
-            Calendar cal = Calendar.getInstance();
-            cal.setLenient(false);
-            //boolean estValide = localDate.isAfter(DATE0);
-            boolean estCouverte = localDate.isBefore(DATE5);
-            if (estValide) {
-                if (estCouverte) {
-                    message = getMessage(localDate);
-                } else {
-                    message = "pas couverte";
-                }
+            boolean estValide = testDate(localDate);
+
+            if (estValide && estPositif) {
+                message = getMessage(localDate);
             } else {
-                message = "pas valide";
+                message = "date invalide ou pas couverte par le service";
             }
         } catch (NumberFormatException e) {
-            message = "erreur";
+            message = "erreur 1";
+        }catch(DateTimeException e){
+            message = "erreur 2";
         }
+        
         return message;
     }
 
@@ -59,27 +56,8 @@ public class Verification {
         return message;
     }
 
-    private static boolean testDay(int day) {
-        if (day > 0 && day < 32) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private static boolean testMonth(int day) {
-        if (day > 0 && day < 13) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private static boolean testYear(int year) {
-        if (year > 0 && year <= LocalDate.now().getYear()-18) {
-            return true;
-        } else {
-            return false;
-        }
+    private static boolean testDate(LocalDate date) {
+        LocalDate l = LocalDate.of(1900, Month.JANUARY, 1);
+        return date.isAfter(DATE0) && date.isBefore(DATE5);
     }
 }

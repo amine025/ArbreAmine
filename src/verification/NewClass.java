@@ -13,6 +13,7 @@ import java.text.ParseException;
  */
 public class NewClass {
     public static void main (String[] args) throws ParseException{
-        System.out.println(Verification.showMessageFromAge("1","a","31"));
+        String[] infos = {"1","12","2","Amine", "Ghodbane"};
+        System.out.println(Verification.showMessageFromAge(infos));
     }  
 }
