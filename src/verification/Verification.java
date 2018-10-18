@@ -76,7 +76,7 @@ public class Verification {
     }
 
     private static boolean testYear(int year) {
-        if (year > 0 && year < LocalDate.now().getYear()) {
+        if (year > 0 && year <= LocalDate.now().getYear()-18) {
             return true;
         } else {
             return false;
