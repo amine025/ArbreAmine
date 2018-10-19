@@ -12,16 +12,22 @@ public class Verification {
     private final static LocalDate DATE3 = LocalDate.of(1991, Month.JANUARY, 1);
     private final static LocalDate DATE4 = LocalDate.of(2001, Month.JANUARY, 1);
     private final static LocalDate DATE5 = LocalDate.of(LocalDate.now().getYear() - 18, Month.JANUARY, 1);
+    private static String[] Arrayinfos;
 
-    public static String showMessageFromAge(String[] infos) {
+    public static void splitInfos(String param) {
+        Arrayinfos = param.split(";");
+    }
 
+    public static String showMessageFromAge(String infos) {
+       
+        splitInfos(infos);
         String message;
         LocalDate localDate;
         try {
-            int myYear = Integer.parseInt(infos[0]);
-            int myMonth = Integer.parseInt(infos[1]);
-            int myDay = Integer.parseInt(infos[2]);
-            boolean estPositif =  myYear > 0 && myMonth> 0 && myDay > 0;
+            int myYear = Integer.parseInt(Arrayinfos[0]);
+            int myMonth = Integer.parseInt(Arrayinfos[1]);
+            int myDay = Integer.parseInt(Arrayinfos[2]);
+            boolean estPositif = myYear > 0 && myMonth > 0 && myDay > 0;
 
             localDate = LocalDate.of(myYear, myMonth, myDay);
             boolean estValide = testDate(localDate);
@@ -33,10 +39,10 @@ public class Verification {
             }
         } catch (NumberFormatException e) {
             message = "erreur 1";
-        }catch(DateTimeException e){
+        } catch (DateTimeException e) {
             message = "erreur 2";
         }
-        
+
         return message;
     }
 
