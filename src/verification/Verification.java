@@ -12,24 +12,29 @@ public class Verification {
     private final static LocalDate DATE3 = LocalDate.of(1991, Month.JANUARY, 1);
     private final static LocalDate DATE4 = LocalDate.of(2001, Month.JANUARY, 1);
     private final static LocalDate DATE5 = LocalDate.of(LocalDate.now().getYear() - 18, Month.JANUARY, 1);
-    private static String[] Arrayinfos;
+    private static String[] arrayInfos;
 
     public static void splitInfos(String param) {
-        Arrayinfos = param.split(";");
+        arrayInfos = param.split(";");
     }
 
     public static String showMessageFromAge(String infos) {
        
         splitInfos(infos);
+        for(int i = 0; i<arrayInfos.length;i++){
+            System.out.println(arrayInfos[i]);
+        }
+        
         String message;
         LocalDate localDate;
         try {
-            int myYear = Integer.parseInt(Arrayinfos[0]);
-            int myMonth = Integer.parseInt(Arrayinfos[1]);
-            int myDay = Integer.parseInt(Arrayinfos[2]);
-            boolean estPositif = myYear > 0 && myMonth > 0 && myDay > 0;
-
+            int myYear = Integer.parseInt(arrayInfos[0]);
+            int myMonth = Integer.parseInt(arrayInfos[1]);
+            int myDay = Integer.parseInt(arrayInfos[2]);
+            
             localDate = LocalDate.of(myYear, myMonth, myDay);
+            
+            boolean estPositif = myYear > 0 && myMonth > 0 && myDay > 0;
             boolean estValide = testDate(localDate);
 
             if (estValide && estPositif) {
@@ -63,7 +68,6 @@ public class Verification {
     }
 
     private static boolean testDate(LocalDate date) {
-        LocalDate l = LocalDate.of(1900, Month.JANUARY, 1);
         return date.isAfter(DATE0) && date.isBefore(DATE5);
     }
 }
