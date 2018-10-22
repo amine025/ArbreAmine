@@ -14,7 +14,7 @@ public class Verification {
     private final static LocalDate DATE3 = LocalDate.of(1991, Month.JANUARY, 1);
     private final static LocalDate DATE4 = LocalDate.of(2001, Month.JANUARY, 1);
     private final static LocalDate DATE5 = LocalDate.of(LocalDate.now().getYear() - 18, Month.JANUARY, 1);
-    //private  DateClient dateClient;
+    private static DateClient dateClient;
 
     public static DateClient getDateClient(String param) {
 
@@ -25,8 +25,7 @@ public class Verification {
     }
 
     public static String showMessageFromAge(String infos) {
-        DateClient dateClient = getDateClient(infos);
-        //getDateClient(infos);
+        dateClient = getDateClient(infos);
         String message;
         LocalDate localDate;
         try {
