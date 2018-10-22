@@ -1,8 +1,10 @@
 package verification;
 
+import com.google.gson.Gson;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
+import model.*;
 
 public class Verification {
 
@@ -12,28 +14,28 @@ public class Verification {
     private final static LocalDate DATE3 = LocalDate.of(1991, Month.JANUARY, 1);
     private final static LocalDate DATE4 = LocalDate.of(2001, Month.JANUARY, 1);
     private final static LocalDate DATE5 = LocalDate.of(LocalDate.now().getYear() - 18, Month.JANUARY, 1);
-    private static String[] arrayInfos;
+    //private  DateClient dateClient;
 
-    public static void splitInfos(String param) {
-        arrayInfos = param.split(";");
+    public static DateClient getDateClient(String param) {
+
+        Gson gson = new Gson();
+        Client client = gson.fromJson(param, Client.class);
+        DateClient dateClient = client.getDdn();
+        return dateClient;
     }
 
     public static String showMessageFromAge(String infos) {
-       
-        splitInfos(infos);
-        for(int i = 0; i<arrayInfos.length;i++){
-            System.out.println(arrayInfos[i]);
-        }
-        
+        DateClient dateClient = getDateClient(infos);
+        //getDateClient(infos);
         String message;
         LocalDate localDate;
         try {
-            int myYear = Integer.parseInt(arrayInfos[0]);
-            int myMonth = Integer.parseInt(arrayInfos[1]);
-            int myDay = Integer.parseInt(arrayInfos[2]);
-            
+            int myYear = dateClient.getAnnee();
+            int myMonth = dateClient.getMois();
+            int myDay = dateClient.getJour();
+
             localDate = LocalDate.of(myYear, myMonth, myDay);
-            
+
             boolean estPositif = myYear > 0 && myMonth > 0 && myDay > 0;
             boolean estValide = testDate(localDate);
 
