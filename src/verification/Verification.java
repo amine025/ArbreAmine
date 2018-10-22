@@ -72,4 +72,8 @@ public class Verification {
     private static boolean testDate(LocalDate date) {
         return date.isAfter(DATE0) && date.isBefore(DATE5);
     }
+    
+    public void getInfosClient(){
+        System.getenv();
+    }
 }
