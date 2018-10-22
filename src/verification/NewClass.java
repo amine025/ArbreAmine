@@ -14,8 +14,6 @@ import java.text.ParseException;
 public class NewClass {
     public static void main (String[] args) throws ParseException{
         String test ="{\"nom\":\"Amine\",\"prenom\":\"Ghodbane\",\"ddn\":{\"annee\":\"1999\",\"mois\":\"05\",\"jour\":\"05\"}}";
-               
-        String[] infos = {"1","12","2","Amine", "Ghodbane"};
         System.out.println(Verification.showMessageFromAge(test));
     }  
 }
