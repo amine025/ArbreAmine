@@ -1,45 +1,29 @@
 package verification;
 
-import com.google.gson.Gson;
 import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.Month;
-import model.*;
+import java.util.Date;
 
 public class Verification {
 
-    private final static LocalDate DATE0 = LocalDate.of(1900, Month.JANUARY, 1);
-    private final static LocalDate DATE1 = LocalDate.of(1971, Month.JANUARY, 1);
-    private final static LocalDate DATE2 = LocalDate.of(1981, Month.JANUARY, 1);
-    private final static LocalDate DATE3 = LocalDate.of(1991, Month.JANUARY, 1);
-    private final static LocalDate DATE4 = LocalDate.of(2001, Month.JANUARY, 1);
-    private final static LocalDate DATE5 = LocalDate.of(LocalDate.now().getYear() - 18, Month.JANUARY, 1);
-    private static DateClient dateClient;
-
-    public static DateClient getDateClient(String param) {
-
-        Gson gson = new Gson();
-        Client client = gson.fromJson(param, Client.class);
-        DateClient dateClient = client.getDdn();
-        return dateClient;
-    }
-
-    public static String showMessageFromAge(String infos) {
-        dateClient = getDateClient(infos);
+    private final static Date DATE0 = new Date(1900);
+    private final static Date DATE1 = new Date(1971);;
+    private final static Date DATE2 = new Date(1981);;
+    private final static Date DATE3 = new Date(1991);;
+    private final static Date DATE4 = new Date(2001);;
+    private final static Date DATE5 = new Date();
+    
+    public static String showMessageFromAge(int year) {
         String message;
-        LocalDate localDate;
+        Date date;
         try {
-            int myYear = dateClient.getAnnee();
-            int myMonth = dateClient.getMois();
-            int myDay = dateClient.getJour();
+           
+            date = new Date(year);
 
-            localDate = LocalDate.of(myYear, myMonth, myDay);
-
-            boolean estPositif = myYear > 0 && myMonth > 0 && myDay > 0;
-            boolean estValide = testDate(localDate);
+            boolean estPositif = year > 0;
+            boolean estValide = testDate(date);
 
             if (estValide && estPositif) {
-                message = getMessage(localDate);
+                message = getMessage(date);
             } else {
                 message = "date invalide ou pas couverte par le service";
             }
@@ -52,15 +36,15 @@ public class Verification {
         return message;
     }
 
-    private static String getMessage(LocalDate date) {
+    private static String getMessage(Date date) {
         String message;
-        if (date.isBefore(DATE1)) {
+        if (date.before(DATE1)) {
             message = "Il est temps d'aller se promener à travers le monde";
-        } else if (date.isBefore(DATE2)) {
+        } else if (date.before(DATE2)) {
             message = "Il est temps de commancer à travailler surieusement";
-        } else if (date.isBefore(DATE3)) {
+        } else if (date.before(DATE3)) {
             message = "Il est grand temps de terminer tes études";
-        } else if (date.isBefore(DATE4)) {
+        } else if (date.before(DATE4)) {
             message = "Fais ce qui te plait, tu as encore le temps!";
         } else {
             message = "Utilisation de ce service non-autorisée !!!";
@@ -68,8 +52,8 @@ public class Verification {
         return message;
     }
 
-    private static boolean testDate(LocalDate date) {
-        return date.isAfter(DATE0) && date.isBefore(DATE5);
+    private static boolean testDate(Date date) {
+        return date.after(DATE0) && date.before(DATE5);
     }
     
     public void getInfosClient(){

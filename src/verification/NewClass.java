@@ -13,7 +13,7 @@ import java.text.ParseException;
  */
 public class NewClass {
     public static void main (String[] args) throws ParseException{
-        String test ="{\"nom\":\"Amine\",\"prenom\":\"Ghodbane\",\"ddn\":{\"annee\":\"1999\",\"mois\":\"06\",\"jour\":\"06\"}}";
-        System.out.println(Verification.showMessageFromAge(test));
+        
+        System.out.println(Verification.showMessageFromAge(1990));
     }  
 }
